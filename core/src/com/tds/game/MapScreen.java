@@ -6,10 +6,15 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class MapScreen extends ScreenAdapter {
 
+    private static final float HEX_WIDTH = 110f;
+    private static final float HEX_HEIGHT = 125f;
+
     private SummerGameClient game;
+    private GameMap map;
 
     public MapScreen( SummerGameClient game ) {
         this.game = game;
+        this.map = loadGameMap();
     }
 
     @Override
@@ -18,8 +23,28 @@ public class MapScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         game.getSpriteBatch().begin();
         game.getFont().getData().setScale( 10 );
-        game.getFont().draw( game.getSpriteBatch(), "Map Screen", Gdx.graphics.getWidth() * .13f, Gdx.graphics.getHeight() * .75f );
+        for( int mapX = 0; mapX < this.map.getMapData().length; mapX++ ) {
+            for( int mapY = 0; mapY < this.map.getMapData()[0].length; mapY++ ) {
+                String terrainType = this.map.getMapData()[mapX][mapY].getTerrain().getType();
+                float screenX = HEX_WIDTH * mapX;
+                if( isEvenRow( mapY ) ) {
+                    screenX = HEX_WIDTH * mapX + HEX_WIDTH / 2;
+                }
+
+                float screenY = Gdx.graphics.getHeight() * .95f - mapY * HEX_HEIGHT;
+
+                game.getFont().draw( game.getSpriteBatch(), terrainType, screenX, screenY );
+            }
+        }
         game.getSpriteBatch().end();
     }
 
+
+    private boolean isEvenRow( int row ) {
+        return row % 2 == 0;
+    }
+
+    private GameMap loadGameMap() {
+        return new GameMap( 111 );
+    }
 }
