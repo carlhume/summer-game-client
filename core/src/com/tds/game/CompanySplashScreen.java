@@ -8,25 +8,31 @@ import com.badlogic.gdx.graphics.Texture;
 public class CompanySplashScreen extends ScreenAdapter {
 
     private SummerGameClient game;
-    private Texture img;
+    private Texture companySplashImage;
+    private long timeFirstSplashed;
 
     public CompanySplashScreen( SummerGameClient game ) {
         this.game = game;
-        img = new Texture("MadeByTDS.png");
+        this.timeFirstSplashed = game.getClock().getCurrentTime();
+        companySplashImage = new Texture("MadeByTDS.png");
     }
 
     @Override
     public void render ( float delta ) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        // >> cnh >> Feels kludgy, but is a start ...
+        // Only render the splash screen if we're in the first 30 seconds ... )
+        if( game.getClock().getCurrentTime() > 2000 + this.timeFirstSplashed ) {
+            game.showMapScreen();
+        }
+
         game.getSpriteBatch().begin();
-        game.getSpriteBatch().draw(img, 0, 0);
+        game.getSpriteBatch().draw( companySplashImage, 0, 0 );
         game.getSpriteBatch().end();
     }
 
     @Override
     public void dispose () {
-        img.dispose();
+        companySplashImage.dispose();
     }
 
 }
