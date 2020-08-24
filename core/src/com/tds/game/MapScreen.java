@@ -14,7 +14,7 @@ public class MapScreen extends ScreenAdapter {
 
     public MapScreen( SummerGameClient game ) {
         this.game = game;
-        this.map = loadGameMap();
+        this.map = game.loadGameMap();
     }
 
     @Override
@@ -44,7 +44,4 @@ public class MapScreen extends ScreenAdapter {
         return row % 2 == 0;
     }
 
-    private GameMap loadGameMap() {
-        return new GameMap( 111 );
-    }
 }

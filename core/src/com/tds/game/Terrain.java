@@ -28,8 +28,16 @@ public class Terrain {
         return this.type;
     }
 
+    public void setType( String newType ) {
+        this.type = newType;
+    }
+
     public String getLabel() {
         return this.label;
+    }
+
+    public void setLabel( String newLabel ) {
+        this.label = newLabel;
     }
 
 }

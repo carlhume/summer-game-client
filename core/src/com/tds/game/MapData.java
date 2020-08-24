@@ -16,4 +16,8 @@ public class MapData {
         return this.terrain;
     }
 
+    public void setTerrain( Terrain newTerrain ) {
+        this.terrain = newTerrain;
+    }
+
 }

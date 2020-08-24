@@ -1,5 +1,7 @@
 package com.tds.game;
 
+import java.util.Map;
+
 public class GameMap {
 
     private static final long HARDCODED_PLAINS_MAP_ID = 111;
@@ -7,7 +9,10 @@ public class GameMap {
     private long id;
     private MapData[][] mapData;
 
-    public GameMap() {}
+    public GameMap() {
+        this.mapData = new MapData[1][1];
+        mapData[0][0] = new MapData( Terrain.PLAINS );
+    }
 
     public GameMap(long mapID ) {
         this.id = mapID;
@@ -27,8 +32,16 @@ public class GameMap {
         return this.id;
     }
 
+    public void setId( long newId ) {
+        this.id = newId;
+    }
+
     public MapData[][] getMapData() {
         return this.mapData;
+    }
+
+    public void setMapData( MapData[][] newData ) {
+        this.mapData = newData;
     }
 
 }

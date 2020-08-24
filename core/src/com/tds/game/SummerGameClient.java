@@ -34,6 +34,12 @@ public class SummerGameClient extends Game {
 		font.dispose();
 	}
 
+	public GameMap loadGameMap() {
+		// TODO: Configure instead of hardcode ...
+		MapLoader loader = new MapLoader();
+		return loader.loadMap();
+	}
+
 	public void showCompanySplashScreen() {
 		setScreen( companySplashScreen );
 	}
