@@ -19,7 +19,7 @@ public class Terrain {
         this.label = LABEL_PLAINS;
     }
 
-    public Terrain(String type, String label ) {
+    public Terrain( String type, String label ) {
         this.type = type;
         this.label = label;
     }
