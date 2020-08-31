@@ -21,7 +21,7 @@ public class MapLoader {
                 .register( loggingFeature )
                 .build();
         WebTarget webTarget
-                = client.target("http://localhost:8080/load-map" ).queryParam( "id", 112 );
+                = client.target("http://localhost:8080/load-map" ).queryParam( "id", 116 );
         Invocation.Builder invocationBuilder
                 = webTarget.request( MediaType.APPLICATION_JSON );
         return invocationBuilder.get( GameMap.class );

@@ -4,24 +4,19 @@ public class Terrain {
 
     //TODO: Replace this with terrain info loaded from game rules
     private static final String CODE_PLAINS = "P";
-    private static final String LABEL_PLAINS = "Plains";
-    public static final Terrain PLAINS = new Terrain( CODE_PLAINS, LABEL_PLAINS );
+    public static final Terrain PLAINS = new Terrain( CODE_PLAINS );
 
     private static final String CODE_FOREST = "F";
-    private static final String LABEL_FOREST = "Forest";
-    public static final Terrain FOREST = new Terrain( CODE_FOREST, LABEL_FOREST );
+    public static final Terrain FOREST = new Terrain( CODE_FOREST );
 
     private String type;
-    private String label;
 
     public Terrain() {
         this.type = CODE_PLAINS;
-        this.label = LABEL_PLAINS;
     }
 
-    public Terrain( String type, String label ) {
+    public Terrain( String type ) {
         this.type = type;
-        this.label = label;
     }
 
     public String getType() {
@@ -30,14 +25,6 @@ public class Terrain {
 
     public void setType( String newType ) {
         this.type = newType;
-    }
-
-    public String getLabel() {
-        return this.label;
-    }
-
-    public void setLabel( String newLabel ) {
-        this.label = newLabel;
     }
 
 }
