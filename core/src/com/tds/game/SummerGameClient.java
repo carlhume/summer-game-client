@@ -35,9 +35,9 @@ public class SummerGameClient extends Game {
 	}
 
 	public GameMap loadGameMap() {
-		// TODO: Configure instead of hardcode ...
+		// TODO : Should be loading the game map based on the selected game
 		MapLoader loader = new MapLoader();
-		return loader.loadMap();
+		return loader.loadMap( 116 );
 	}
 
 	public void showCompanySplashScreen() {
