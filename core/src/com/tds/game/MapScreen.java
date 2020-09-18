@@ -28,11 +28,11 @@ public class MapScreen extends ScreenAdapter {
 
     // TODO: >> cnh >> Load the image to terrain mapping from configuration ...
     private void initializeTerrainTextures() {
-        this.terrainTextures.put( "P", new Texture ( Gdx.files.internal("plains_hex.png" ) ) );
-        this.terrainTextures.put( "F", new Texture ( Gdx.files.internal("forest_hex.png" ) ) );
-        this.terrainTextures.put( "M", new Texture ( Gdx.files.internal("mountain_hex.png" ) ) );
-        this.terrainTextures.put( "D", new Texture ( Gdx.files.internal("desert_hex.png" ) ) );
-        this.terrainTextures.put( "W", new Texture ( Gdx.files.internal("water_hex.png" ) ) );
+        this.terrainTextures.put( "P", new Texture ( Gdx.files.internal("terrain/plains_hex.png" ) ) );
+        this.terrainTextures.put( "F", new Texture ( Gdx.files.internal("terrain/forest_hex.png" ) ) );
+        this.terrainTextures.put( "M", new Texture ( Gdx.files.internal("terrain/mountain_hex.png" ) ) );
+        this.terrainTextures.put( "D", new Texture ( Gdx.files.internal("terrain/desert_hex.png" ) ) );
+        this.terrainTextures.put( "W", new Texture ( Gdx.files.internal("terrain/water_hex.png" ) ) );
     }
 
     @Override
