@@ -63,10 +63,7 @@ public class MapScreen extends ScreenAdapter {
     }
 
     private void renderMapDataAtCoordinates( MapData mapData, float screenX, float screenY ) {
-        SpriteBatch spriteBatch = new SpriteBatch();
-        spriteBatch.begin();
-        spriteBatch.draw( getTextureForMapData( mapData ), screenX, screenY );
-        spriteBatch.end();
+        game.getSpriteBatch().draw( getTextureForMapData( mapData ), screenX, screenY );
     }
 
     private Texture getTextureForMapData( MapData mapData ) {
