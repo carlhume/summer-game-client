@@ -3,6 +3,7 @@ package com.tds.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Timer;
@@ -11,6 +12,8 @@ public class SummerGameClient extends Game {
 
 	private SpriteBatch batch;
 	private BitmapFont font;
+	private OrthographicCamera camera;
+
 	private CompanySplashScreen companySplashScreen;
 	private MapScreen mapScreen;
 	private Clock clock;
@@ -20,6 +23,10 @@ public class SummerGameClient extends Game {
 		this.batch = new SpriteBatch();
 		this.font = new BitmapFont();
 		this.clock = new Clock();
+
+		camera = new OrthographicCamera( Gdx.graphics.getWidth(), Gdx.graphics.getHeight()) ;
+		camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
+		camera.update();
 
 		// Create screens at the end, as they may rely on game resources ...
 		this.companySplashScreen = new CompanySplashScreen( this );
@@ -64,4 +71,6 @@ public class SummerGameClient extends Game {
 	public Clock getClock() {
 		return this.clock;
 	}
+
+	public OrthographicCamera getCamera() { return this.camera; }
 }

@@ -1,6 +1,7 @@
 package com.tds.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -49,6 +50,8 @@ public class MapScreen extends ScreenAdapter {
     @Override
     public void render ( float delta ) {
         clearScreen();
+        updateCamera();
+        game.getSpriteBatch().setProjectionMatrix( game.getCamera().combined );
         game.getSpriteBatch().begin();
         for( int mapX = 0; mapX < this.map.getMapData().length; mapX++ ) {
             for( int mapY = 0; mapY < this.map.getMapData()[0].length; mapY++ ) {
@@ -61,10 +64,31 @@ public class MapScreen extends ScreenAdapter {
 
                 MapData mapData = this.map.getMapData()[mapX][mapY];
                 game.getSpriteBatch().draw( getTextureForMapData( mapData ), screenX, screenY );
-                logger.info( "FPS: " + Gdx.graphics.getFramesPerSecond() );
+//                logger.info( "FPS: " + Gdx.graphics.getFramesPerSecond() );
             }
         }
         game.getSpriteBatch().end();
+    }
+
+    private void updateCamera() {
+
+        float moveSpeed = 200f;
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+            game.getCamera().translate(0, moveSpeed * Gdx.graphics.getDeltaTime());
+            logger.finest( "Moving camera Up" );
+        } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            game.getCamera().translate(0, -moveSpeed * Gdx.graphics.getDeltaTime());
+            logger.finest( "Moving camera Down" );
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            game.getCamera().translate(-moveSpeed * Gdx.graphics.getDeltaTime(), 0);
+            logger.finest( "Moving camera Left" );
+        } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            game.getCamera().translate(moveSpeed * Gdx.graphics.getDeltaTime(), 0);
+            logger.finest( "Moving camera Right" );
+        }
+        game.getCamera().update();
     }
 
     private void clearScreen() {
