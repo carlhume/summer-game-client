@@ -1,12 +1,10 @@
 package com.tds.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
 
 public class SummerGameClient extends Game {
 
@@ -26,6 +24,16 @@ public class SummerGameClient extends Game {
 		this.companySplashScreen = new CompanySplashScreen( this );
 		this.mapScreen = new MapScreen( this );
 		showCompanySplashScreen();
+		showScreenAfterDelay( mapScreen, 2 );
+	}
+
+	private void showScreenAfterDelay( final Screen screen, long delayInSeconds ) {
+		Timer.schedule(new Timer.Task(){
+			@Override
+			public void run() {
+				setScreen( screen );
+			}
+		}, delayInSeconds );
 	}
 
 	@Override
@@ -42,10 +50,6 @@ public class SummerGameClient extends Game {
 
 	public void showCompanySplashScreen() {
 		setScreen( companySplashScreen );
-	}
-
-	public void showMapScreen() {
-		setScreen( mapScreen );
 	}
 
 	public SpriteBatch getSpriteBatch() {

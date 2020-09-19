@@ -17,12 +17,6 @@ public class CompanySplashScreen extends ScreenAdapter {
 
     @Override
     public void render ( float delta ) {
-        // >> cnh >> Feels kludgy, but is a start ...
-        // Only render the splash screen if we're in the first 30 seconds ... )
-        if( game.getClock().getCurrentTime() > 2000 + this.timeFirstSplashed ) {
-            game.showMapScreen();
-        }
-
         game.getSpriteBatch().begin();
         game.getSpriteBatch().draw( companySplashImage, 0, 0 );
         game.getSpriteBatch().end();
