@@ -7,11 +7,9 @@ public class CompanySplashScreen extends ScreenAdapter {
 
     private SummerGameClient game;
     private Texture companySplashImage;
-    private long timeFirstSplashed;
 
     public CompanySplashScreen( SummerGameClient game ) {
         this.game = game;
-        this.timeFirstSplashed = game.getClock().getCurrentTime();
         companySplashImage = new Texture("MadeByTDS.png");
     }
 
