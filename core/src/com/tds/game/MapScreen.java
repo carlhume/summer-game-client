@@ -5,10 +5,15 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Scaling;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 public class MapScreen extends ScreenAdapter {
+
+    private static final Logger logger = Logger.getLogger( MapScreen.class.getName() );
 
     private static final float BORDER = 75f;
     private static final float HEX_WIDTH = 200f;
@@ -35,43 +40,44 @@ public class MapScreen extends ScreenAdapter {
         this.terrainTextures.put( "W", new Texture ( Gdx.files.internal("terrain/water_hex.png" ) ) );
     }
 
+    /**
+     * Map origin is at the bottom left of the screen.
+     * // TODO: >> cnh >> Do we want to render from the top left instead?
+     *
+     * @param delta
+     */
     @Override
     public void render ( float delta ) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        clearScreen();
         game.getSpriteBatch().begin();
-        game.getFont().getData().setScale( 10 );
         for( int mapX = 0; mapX < this.map.getMapData().length; mapX++ ) {
             for( int mapY = 0; mapY < this.map.getMapData()[0].length; mapY++ ) {
                 float screenX = HEX_WIDTH * mapX;
-                if( isEvenRow( mapY ) ) {
+                if( isOddRow( mapY ) ) {
                     screenX = HEX_WIDTH * mapX + HEX_WIDTH / 2;
                 }
 
-                float screenY = Gdx.graphics.getHeight() - mapY * HEX_HEIGHT - HEX_HEIGHT - BORDER;
+                float screenY = HEX_HEIGHT * mapY;
 
                 MapData mapData = this.map.getMapData()[mapX][mapY];
-                renderMapDataAtCoordinates( mapData, screenX, screenY );
+                game.getSpriteBatch().draw( getTextureForMapData( mapData ), screenX, screenY );
+                logger.info( "FPS: " + Gdx.graphics.getFramesPerSecond() );
             }
         }
         game.getSpriteBatch().end();
     }
 
-    private void renderMapDataAsTextAtCoordinates( MapData mapData, float screenX, float screenY ) {
-        String terrainType = mapData.getTerrain().getType();
-        game.getFont().draw( game.getSpriteBatch(), terrainType, screenX, screenY );
-    }
-
-    private void renderMapDataAtCoordinates( MapData mapData, float screenX, float screenY ) {
-        game.getSpriteBatch().draw( getTextureForMapData( mapData ), screenX, screenY );
+    private void clearScreen() {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
     private Texture getTextureForMapData( MapData mapData ) {
         return terrainTextures.get( mapData.getTerrain().getType() );
     }
 
-    private boolean isEvenRow( int row ) {
-        return row % 2 == 0;
+    private boolean isOddRow( int row ) {
+        return row % 2 == 1;
     }
 
 }
