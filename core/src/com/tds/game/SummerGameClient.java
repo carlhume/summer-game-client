@@ -13,6 +13,7 @@ public class SummerGameClient extends Game {
 	private SpriteBatch batch;
 	private BitmapFont font;
 	private OrthographicCamera gameCamera;
+	private OrthographicCamera hudCamera;
 
 	private CompanySplashScreen companySplashScreen;
 	private MapScreen mapScreen;
@@ -22,6 +23,7 @@ public class SummerGameClient extends Game {
 	public void create () {
 		this.batch = new SpriteBatch();
 		this.font = new BitmapFont();
+		font.getData().setScale( 2f );
 		this.clock = new Clock();
 
 		float aspectRatio = (float)Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth();
@@ -29,6 +31,9 @@ public class SummerGameClient extends Game {
 		gameCamera = new OrthographicCamera( viewableWorldWidth, viewableWorldWidth * aspectRatio ) ;
 		gameCamera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
 		gameCamera.update();
+
+		hudCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		hudCamera.position.set(hudCamera.viewportWidth / 2.0f, hudCamera.viewportHeight / 2.0f, 1.0f);
 
 		// Create screens at the end, as they may rely on game resources ...
 		this.companySplashScreen = new CompanySplashScreen( this );
@@ -75,4 +80,5 @@ public class SummerGameClient extends Game {
 	}
 
 	public OrthographicCamera getGameCamera() { return this.gameCamera; }
+	public OrthographicCamera getHudCamera() { return this.hudCamera; }
 }

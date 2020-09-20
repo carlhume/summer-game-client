@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -64,6 +65,12 @@ public class MapScreen extends ScreenAdapter {
 //                logger.info( "FPS: " + Gdx.graphics.getFramesPerSecond() );
             }
         }
+        game.getSpriteBatch().end();
+
+        game.getHudCamera().update();
+        game.getSpriteBatch().setProjectionMatrix(game.getHudCamera().combined);
+        game.getSpriteBatch().begin();
+        game.getFont().draw(game.getSpriteBatch(), "Debug Mode, FPS=" + Gdx.graphics.getFramesPerSecond(), 0, game.getHudCamera().viewportHeight);
         game.getSpriteBatch().end();
     }
 
