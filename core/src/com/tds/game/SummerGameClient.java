@@ -12,7 +12,7 @@ public class SummerGameClient extends Game {
 
 	private SpriteBatch batch;
 	private BitmapFont font;
-	private OrthographicCamera camera;
+	private OrthographicCamera gameCamera;
 
 	private CompanySplashScreen companySplashScreen;
 	private MapScreen mapScreen;
@@ -24,9 +24,11 @@ public class SummerGameClient extends Game {
 		this.font = new BitmapFont();
 		this.clock = new Clock();
 
-		camera = new OrthographicCamera( Gdx.graphics.getWidth(), Gdx.graphics.getHeight()) ;
-		camera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
-		camera.update();
+		float aspectRatio = (float)Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth();
+		float viewableWorldWidth = 1024f;
+		gameCamera = new OrthographicCamera( viewableWorldWidth, viewableWorldWidth * aspectRatio ) ;
+		gameCamera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
+		gameCamera.update();
 
 		// Create screens at the end, as they may rely on game resources ...
 		this.companySplashScreen = new CompanySplashScreen( this );
@@ -72,5 +74,5 @@ public class SummerGameClient extends Game {
 		return this.clock;
 	}
 
-	public OrthographicCamera getCamera() { return this.camera; }
+	public OrthographicCamera getGameCamera() { return this.gameCamera; }
 }

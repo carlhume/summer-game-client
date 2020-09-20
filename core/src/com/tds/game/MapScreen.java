@@ -47,19 +47,20 @@ public class MapScreen extends ScreenAdapter {
     public void render ( float delta ) {
         clearScreen();
         updateCamera();
-        game.getSpriteBatch().setProjectionMatrix( game.getCamera().combined );
+        game.getSpriteBatch().setProjectionMatrix( game.getGameCamera().combined );
         game.getSpriteBatch().begin();
         for( int mapX = 0; mapX < this.map.getMapData().length; mapX++ ) {
             for( int mapY = 0; mapY < this.map.getMapData()[0].length; mapY++ ) {
+                MapData mapData = this.map.getMapData()[mapX][mapY];
+                Texture hexToDraw = getTextureForMapData( mapData );
+
+                float screenY = HEX_HEIGHT * mapY;
                 float screenX = HEX_WIDTH * mapX;
                 if( isOddRow( mapY ) ) {
                     screenX = HEX_WIDTH * mapX + HEX_WIDTH / 2;
                 }
 
-                float screenY = HEX_HEIGHT * mapY;
-
-                MapData mapData = this.map.getMapData()[mapX][mapY];
-                game.getSpriteBatch().draw( getTextureForMapData( mapData ), screenX, screenY );
+                game.getSpriteBatch().draw( hexToDraw, screenX, screenY );
 //                logger.info( "FPS: " + Gdx.graphics.getFramesPerSecond() );
             }
         }
@@ -71,30 +72,30 @@ public class MapScreen extends ScreenAdapter {
         float moveSpeed = 200f;
         float zoomSpeed = 1f;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            game.getCamera().translate(0, moveSpeed * Gdx.graphics.getDeltaTime());
+            game.getGameCamera().translate(0, moveSpeed * Gdx.graphics.getDeltaTime());
             logger.finest( "Moving camera Up" );
         } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            game.getCamera().translate(0, -moveSpeed * Gdx.graphics.getDeltaTime());
+            game.getGameCamera().translate(0, -moveSpeed * Gdx.graphics.getDeltaTime());
             logger.finest( "Moving camera Down" );
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            game.getCamera().translate(-moveSpeed * Gdx.graphics.getDeltaTime(), 0);
+            game.getGameCamera().translate(-moveSpeed * Gdx.graphics.getDeltaTime(), 0);
             logger.finest( "Moving camera Left" );
         } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            game.getCamera().translate(moveSpeed * Gdx.graphics.getDeltaTime(), 0);
+            game.getGameCamera().translate(moveSpeed * Gdx.graphics.getDeltaTime(), 0);
             logger.finest( "Moving camera Right" );
         }
 
         if(Gdx.input.isKeyPressed((Input.Keys.UP))){
-            game.getCamera().zoom -= zoomSpeed * Gdx.graphics.getDeltaTime();
+            game.getGameCamera().zoom -= zoomSpeed * Gdx.graphics.getDeltaTime();
             logger.finest( "Zooming camera in" );
         } else if(Gdx.input.isKeyPressed((Input.Keys.DOWN))){
-            game.getCamera().zoom += zoomSpeed * Gdx.graphics.getDeltaTime();
+            game.getGameCamera().zoom += zoomSpeed * Gdx.graphics.getDeltaTime();
             logger.finest( "Zooming camera out" );
         }
 
-        game.getCamera().update();
+        game.getGameCamera().update();
     }
 
     private void clearScreen() {
