@@ -13,7 +13,6 @@ public class MapScreen extends ScreenAdapter {
 
     private static final Logger logger = Logger.getLogger( MapScreen.class.getName() );
 
-    private static final float BORDER = 75f;
     private static final float HEX_WIDTH = 200f;
     private static final float HEX_HEIGHT = 150f;
 
