@@ -45,7 +45,7 @@ public class MapScreen extends ScreenAdapter {
      * Map origin is at the bottom left of the screen.
      * // TODO: >> cnh >> Do we want to render from the top left instead?
      *
-     * @param delta
+     * @param delta Inherited from superclass and ignored
      */
     @Override
     public void render ( float delta ) {
@@ -73,6 +73,7 @@ public class MapScreen extends ScreenAdapter {
     private void updateCamera() {
 
         float moveSpeed = 200f;
+        float zoomSpeed = 1f;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             game.getCamera().translate(0, moveSpeed * Gdx.graphics.getDeltaTime());
             logger.finest( "Moving camera Up" );
@@ -88,6 +89,15 @@ public class MapScreen extends ScreenAdapter {
             game.getCamera().translate(moveSpeed * Gdx.graphics.getDeltaTime(), 0);
             logger.finest( "Moving camera Right" );
         }
+
+        if(Gdx.input.isKeyPressed((Input.Keys.UP))){
+            game.getCamera().zoom -= zoomSpeed * Gdx.graphics.getDeltaTime();
+            logger.finest( "Zooming camera in" );
+        } else if(Gdx.input.isKeyPressed((Input.Keys.DOWN))){
+            game.getCamera().zoom += zoomSpeed * Gdx.graphics.getDeltaTime();
+            logger.finest( "Zooming camera out" );
+        }
+
         game.getCamera().update();
     }
 
