@@ -1,6 +1,6 @@
 package com.tds.game;
 
-public class TerrainTypeToImageMapping {
+public class TypeToImageMapping {
 
     private String type;
     private String texturePath;

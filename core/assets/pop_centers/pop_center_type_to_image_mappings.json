@@ -1,0 +1,5 @@
+[
+	{"type":"C","texturePath":"pop_centers/city.png"},
+	{"type":"T","texturePath":"pop_centers/town.png"},
+	{"type":"V","texturePath":"pop_centers/village.png"}
+]

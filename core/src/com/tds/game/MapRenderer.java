@@ -25,7 +25,7 @@ public class MapRenderer {
         ArrayList<JsonValue> listOfTypeToTextureMappings = json.fromJson(ArrayList.class,
                 Gdx.files.internal("terrain/terrain_type_to_image_mappings.json") );
         for ( JsonValue jsonTypeToTextureMapping : listOfTypeToTextureMappings ) {
-            TerrainTypeToImageMapping mapping = json.readValue( TerrainTypeToImageMapping.class, jsonTypeToTextureMapping );
+            TypeToImageMapping mapping = json.readValue( TypeToImageMapping.class, jsonTypeToTextureMapping );
             terrainTextures.put( mapping.getType(), new Texture ( Gdx.files.internal( mapping.getTexturePath() ) ) );
         }
     }
@@ -37,7 +37,9 @@ public class MapRenderer {
      * @param map - The Map being rendered
      * @param client - The GameClient that we are running.
      */
-    public void renderMapForClient(GameMap map, SummerGameClient client ) {
+    public void renderMapForClient( GameMap map, SummerGameClient client ) {
+        PopCenterRenderer popCenterRenderer = new PopCenterRenderer( client );
+
         client.getSpriteBatch().setProjectionMatrix( client.getGameCamera().combined );
         client.getSpriteBatch().begin();
         for( int mapX = 0; mapX < map.getMapData().length; mapX++ ) {
@@ -52,9 +54,33 @@ public class MapRenderer {
                 }
 
                 client.getSpriteBatch().draw( hexToDraw, screenX, screenY );
+
+                testHowWeRenderPopCenters(popCenterRenderer, mapX, mapY, hexToDraw, screenY, screenX);
             }
         }
         client.getSpriteBatch().end();
+    }
+
+    private void testHowWeRenderPopCenters(PopCenterRenderer popCenterRenderer, int mapX, int mapY, Texture hexToDraw, float screenY, float screenX) {
+        if( mapX == 1 && mapY == 1 ) {
+            PopCenter popCenter = new PopCenter();
+            popCenter.setType( "C" );
+            renderPopCenterInMiddleOfHex(popCenterRenderer, hexToDraw, screenY, screenX, popCenter);
+        } else if( mapX == 2 && mapY == 2 ) {
+            PopCenter popCenter = new PopCenter();
+            popCenter.setType( "T" );
+            renderPopCenterInMiddleOfHex(popCenterRenderer, hexToDraw, screenY, screenX, popCenter);
+        } else if( mapX == 2 && mapY == 3 ) {
+            PopCenter popCenter = new PopCenter();
+            popCenter.setType( "V" );
+            renderPopCenterInMiddleOfHex(popCenterRenderer, hexToDraw, screenY, screenX, popCenter);
+        }
+    }
+
+    private void renderPopCenterInMiddleOfHex(PopCenterRenderer popCenterRenderer, Texture hexToDraw, float screenY, float screenX, PopCenter popCenter) {
+        screenX = screenX + ( hexToDraw.getWidth() / 2f );
+        screenY = screenY + ( hexToDraw.getHeight() / 2f );
+        popCenterRenderer.renderPopCenterAtCoordinates( popCenter, screenX, screenY );
     }
 
     private Texture getTextureForMapData( MapData mapData ) {
