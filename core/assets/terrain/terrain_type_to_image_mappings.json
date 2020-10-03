@@ -1,0 +1,7 @@
+[
+	{"type":"P","texturePath":"terrain/plains_hex.png"},
+	{"type":"M","texturePath":"terrain/forest_hex.png"},
+	{"type":"F","texturePath":"terrain/mountain_hex.png"},
+	{"type":"D","texturePath":"terrain/desert_hex.png"},
+	{"type":"W","texturePath":"terrain/water_hex.png"}
+]

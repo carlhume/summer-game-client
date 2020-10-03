@@ -2,7 +2,10 @@ package com.tds.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MapRenderer {
@@ -13,14 +16,18 @@ public class MapRenderer {
     private HashMap<String, Texture> terrainTextures;
 
     public MapRenderer() {
-        this.terrainTextures = new HashMap<>();
+        initializeTerrainTextures();
+    }
 
-        // TODO: >> cnh >> Consider loading these from configuration
-        this.terrainTextures.put( "P", new Texture ( Gdx.files.internal("terrain/plains_hex.png" ) ) );
-        this.terrainTextures.put( "F", new Texture ( Gdx.files.internal("terrain/forest_hex.png" ) ) );
-        this.terrainTextures.put( "M", new Texture ( Gdx.files.internal("terrain/mountain_hex.png" ) ) );
-        this.terrainTextures.put( "D", new Texture ( Gdx.files.internal("terrain/desert_hex.png" ) ) );
-        this.terrainTextures.put( "W", new Texture ( Gdx.files.internal("terrain/water_hex.png" ) ) );
+    private void initializeTerrainTextures() {
+        terrainTextures = new HashMap<>();
+        Json json = new Json();
+        ArrayList<JsonValue> listOfTypeToTextureMappings = json.fromJson(ArrayList.class,
+                Gdx.files.internal("terrain/terrain_type_to_image_mappings.json") );
+        for ( JsonValue jsonTypeToTextureMapping : listOfTypeToTextureMappings ) {
+            TerrainTypeToImageMapping mapping = json.readValue( TerrainTypeToImageMapping.class, jsonTypeToTextureMapping );
+            terrainTextures.put( mapping.getType(), new Texture ( Gdx.files.internal( mapping.getTexturePath() ) ) );
+        }
     }
 
     /**
