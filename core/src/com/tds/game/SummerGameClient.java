@@ -36,10 +36,18 @@ public class SummerGameClient extends Game {
 		hudCamera.position.set(hudCamera.viewportWidth / 2.0f, hudCamera.viewportHeight / 2.0f, 1.0f);
 
 		// Create screens at the end, as they may rely on game resources ...
-		this.companySplashScreen = new CompanySplashScreen( this );
-		this.mapScreen = new MapScreen( this );
-		showCompanySplashScreen();
+		createGameScreens();
+		showScreen( companySplashScreen );
 		showScreenAfterDelay( mapScreen, 2 );
+	}
+
+	private void createGameScreens() {
+		companySplashScreen = new CompanySplashScreen( this );
+		mapScreen = new MapScreen( this );
+	}
+
+	private void showScreen( final Screen screen ) {
+		setScreen( screen );
 	}
 
 	private void showScreenAfterDelay( final Screen screen, long delayInSeconds ) {
@@ -55,16 +63,14 @@ public class SummerGameClient extends Game {
 	public void dispose () {
 		batch.dispose();
 		font.dispose();
+		companySplashScreen.dispose();
+		mapScreen.dispose();
 	}
 
 	public GameMap loadGameMap() {
 		// TODO : Should be loading the game map based on the selected game
 		MapLoader loader = new MapLoader();
 		return loader.loadMap( 116 );
-	}
-
-	public void showCompanySplashScreen() {
-		setScreen( companySplashScreen );
 	}
 
 	public SpriteBatch getSpriteBatch() {
