@@ -26,19 +26,26 @@ public class SummerGameClient extends Game {
 		font.getData().setScale( 2f );
 		clock = new Clock();
 
-		float aspectRatio = (float)Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth();
-		float viewableWorldWidth = 1024f;
-		gameCamera = new OrthographicCamera( viewableWorldWidth, viewableWorldWidth * aspectRatio ) ;
-		gameCamera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
-		gameCamera.update();
-
-		hudCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		hudCamera.position.set(hudCamera.viewportWidth / 2.0f, hudCamera.viewportHeight / 2.0f, 1.0f);
+		createGameCamera();
+		createHudCamera();
 
 		// Create screens at the end, as they may rely on game resources ...
 		createGameScreens();
 		showScreen( companySplashScreen );
 		showScreenAfterDelay( mapScreen, 2 );
+	}
+
+	private void createHudCamera() {
+		hudCamera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		hudCamera.position.set(hudCamera.viewportWidth / 2.0f, hudCamera.viewportHeight / 2.0f, 1.0f);
+	}
+
+	private void createGameCamera() {
+		float aspectRatio = (float)Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth();
+		float viewableWorldWidth = 1024f;
+		gameCamera = new OrthographicCamera( viewableWorldWidth, viewableWorldWidth * aspectRatio ) ;
+		gameCamera.position.set(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f, 0);
+		gameCamera.update();
 	}
 
 	private void createGameScreens() {
