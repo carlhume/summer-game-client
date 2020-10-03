@@ -21,10 +21,10 @@ public class SummerGameClient extends Game {
 
 	@Override
 	public void create () {
-		this.batch = new SpriteBatch();
-		this.font = new BitmapFont();
+		batch = new SpriteBatch();
+		font = new BitmapFont();
 		font.getData().setScale( 2f );
-		this.clock = new Clock();
+		clock = new Clock();
 
 		float aspectRatio = (float)Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth();
 		float viewableWorldWidth = 1024f;
